@@ -5,7 +5,9 @@ const btnBigPixel = document.querySelector('#pixel-big');
 const btnRainbow = document.querySelector('#btn-rainbow');
 const btnEraser = document.querySelector('#btn-eraser');
 const btnBlack = document.querySelector('#btn-black');
+const btnClear = document.querySelector('#btn-clear');
 const defaultSize = 8;
+let currentSize = defaultSize;
 const defaultMode = 'black';
 let mode = defaultMode;
 
@@ -15,8 +17,10 @@ btnBigPixel.addEventListener('click', () => createGrid(8));
 btnBlack.addEventListener('click', () => setMode('black'));
 btnRainbow.addEventListener('click', () => setMode('rainbow'));
 btnEraser.addEventListener('click', () => setMode('eraser'));
+btnClear.addEventListener('click', () => createGrid(currentSize));
 
 function createGrid(size) {
+    currentSize = size;
     sketchContainer.innerHTML = '';
     let squareCount = size ** 2;
     sketchContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
