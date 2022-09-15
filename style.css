@@ -1,26 +1,24 @@
 body {
     padding: 0px;
     margin: 0px;
-    background-color: cornflowerblue;
+    background-color: #6495ed;
 }
 
 .flex-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;    
 }
 
 .sketch-container {
-    background-color: lightsalmon;
+    background-color: #ffa07a;
     width: 500px;
     height: 500px;
     display: grid;
-    grid-template-rows: auto;
-    
 }
+
  .square {
-    background-color: brown;
-    border: 1px solid black;
+    background-color: #ffffff;
+    border: 1px solid #000000;
  }

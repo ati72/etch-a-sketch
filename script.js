@@ -2,64 +2,58 @@ const sketchContainer = document.querySelector('.sketch-container');
 const btnSmallPixel = document.querySelector('#pixel-small');
 const btnMidPixel = document.querySelector('#pixel-mid');
 const btnBigPixel = document.querySelector('#pixel-big');
-let rows = 8;
-let squareCount = rows**2;
-let cssText = "";
+const btnRainbow = document.querySelector('#btn-rainbow');
+const btnEraser = document.querySelector('#btn-eraser');
+const btnBlack = document.querySelector('#btn-black');
+const defaultSize = 8;
+const defaultMode = 'black';
+let mode = defaultMode;
 
-btnMidPixel.addEventListener('click', () => {
-    rows = 16;
-    cssText = "";
-    sketchContainer.style.gridTemplateColumns = cssText;
+btnSmallPixel.addEventListener('click', () => createGrid(32));
+btnMidPixel.addEventListener('click', () => createGrid(16));
+btnBigPixel.addEventListener('click', () => createGrid(8));
+btnBlack.addEventListener('click', () => setMode('black'));
+btnRainbow.addEventListener('click', () => setMode('rainbow'));
+btnEraser.addEventListener('click', () => setMode('eraser'));
 
-    for(i=0; i<rows; i++) {
-        cssText += "1fr ";
-        sketchContainer.style.gridTemplateColumns = cssText;
-    }
-    
+function createGrid(size) {
+    sketchContainer.innerHTML = '';
+    let squareCount = size ** 2;
+    sketchContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    sketchContainer.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+
     for(i=0; i<squareCount; i++) {
-        let  newSquare = document.createElement('div');
+        let newSquare = document.createElement('div');
         newSquare.classList.add('square');
         sketchContainer.appendChild(newSquare);
     }
-});
-
-/* function pixelSize(button) {
-    if (button.value === "Big") rows = 8;
-    else if (button.value === "Medium") rows = 16;
-    else if (button.value === "Small") rows = 32;
 }
- */
 
-/* rowRange.addEventListener("input", () => {
-    rows = rowRange.valueAsNumber;
-    sketchContainer.style.gridTemplateColumns = "";
-    cssText = "";
-    console.log(rows);
+function setMode(newMode) {
+    mode = newMode;
+    draw();
+}
 
+function randomNumber(max) {
+    return Math.floor((Math.random()) * max);
+}
 
-    for(i=0; i<rows; i++) {
-       
-        cssText += "1fr ";
-        console.log(cssText);
-        sketchContainer.style.gridTemplateColumns = cssText;
+function draw() {
+
+    if(mode === 'black') {
+        sketchContainer.addEventListener('mouseover', (e) => {
+            e.target.style.backgroundColor = `rgb(0, 0, 0)`;
+        })
+    } else if (mode === 'rainbow') {
+        sketchContainer.addEventListener('mouseover', (e) => {
+            e.target.style.backgroundColor = `rgb(${randomNumber(255)}, ${randomNumber(255)}, ${randomNumber(255)})`;
+        })
+    } else if (mode === 'eraser') {
+        sketchContainer.addEventListener('mouseover', (e) => {
+            e.target.style.backgroundColor = `rgb(255, 255, 255)`;
+        })
     }
-    
-    for(i=0; i<squareCount; i++) {
-        let  newSquare = document.createElement('div');
-        newSquare.classList.add('square');
-        sketchContainer.appendChild(newSquare);
-    }
-
-}) */
-
-for(i=0; i<rows; i++) {
-    cssText += "1fr ";
-    sketchContainer.style.gridTemplateColumns = cssText;
 }
 
-for(i=0; i<squareCount; i++) {
-    let  newSquare = document.createElement('div');
-    newSquare.classList.add('square');
-    sketchContainer.appendChild(newSquare);
-}
-
+createGrid(defaultSize);
+draw();
